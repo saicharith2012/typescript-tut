@@ -1,6 +1,16 @@
+// PIZZA RESTAURANT APP 
+
+// custom object type
 type Pizza = {
   name: string,
   price: number
+}
+
+// nested object type
+type Order = {
+  id: number,
+  pizza: Pizza,
+  status: string
 }
 
 const menu = [

@@ -14,6 +14,7 @@ function addNewPizza(pizzaObj) {
 // FUNCTION TO PLACE ORDER
 function placeOrder(pizzaName) {
     var selectedPizza = menu.find(function (item) { return item.name === pizzaName; });
+    // if selectedPizza is undefined, the program exits even before the execution of the next statement.
     if (!selectedPizza) {
         console.error("".concat(pizzaName, " does not exist in the menu."));
         return;
@@ -30,7 +31,6 @@ function placeOrder(pizzaName) {
 // FUNCTION TO MARK THE ORDER COMPLETE
 function completeOrder(orderId) {
     var order = orderQueue.find(function (item) { return item.id === orderId; });
-    // if order is undefined, the program exits even before the execution of the next statement.
     if (!order) {
         console.error("No order with id ".concat(orderId, " found."));
         return;
