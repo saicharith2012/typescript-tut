@@ -1,17 +1,17 @@
-// PIZZA RESTAURANT APP 
+// PIZZA RESTAURANT APP
 
 // custom object type
 type Pizza = {
-  name: string,
-  price: number
-}
+  name: string;
+  price: number;
+};
 
 // nested object type
 type Order = {
-  id: number,
-  pizza: Pizza,
-  status: string
-}
+  id: number;
+  pizza: Pizza;
+  status: string;
+};
 
 const menu = [
   { name: "Margherita", price: 8 },
@@ -21,11 +21,11 @@ const menu = [
 ];
 
 let cashInRegister = 100;
-const orderQueue = [];
+const orderQueue: Order[] = [];
 let nextOrderId = 1;
 
 // FUNCTION TO ADD NEW PIZZA
-function addNewPizza(pizzaObj: Pizza ) {
+function addNewPizza(pizzaObj: Pizza) {
   menu.push(pizzaObj);
 }
 
