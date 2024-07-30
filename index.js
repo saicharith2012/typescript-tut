@@ -1,9 +1,9 @@
-// PIZZA RESTAURANT APP 
+// PIZZA RESTAURANT APP
 var menu = [
-    { name: "Margherita", price: 8 },
-    { name: "Pepperoni", price: 10 },
-    { name: "Hawaiian", price: 10 },
-    { name: "Veggie", price: 8 },
+    { id: 1, name: "Margherita", price: 8 },
+    { id: 2, name: "Pepperoni", price: 10 },
+    { id: 3, name: "Hawaiian", price: 10 },
+    { id: 4, name: "Veggie", price: 8 },
 ];
 var cashInRegister = 100;
 var orderQueue = [];
@@ -39,10 +39,25 @@ function completeOrder(orderId) {
     order.status = "completed";
     return order;
 }
-addNewPizza({ name: "Chizza", price: 7 });
-console.log(menu);
-console.log(placeOrder("Margherita"));
-console.log(placeOrder("Pepperoni"));
-console.log(orderQueue);
-console.log(completeOrder(1));
-console.log(cashInRegister);
+// FUNCTION TO GET PIZZA DETAIL
+// type narrowing
+function getPizzaDetail(identifier) {
+    if (typeof identifier === "string") {
+        return menu.find(function (item) { return item.name.toLowerCase() === identifier.toLowerCase(); });
+    }
+    else if (typeof identifier === "number") {
+        return menu.find(function (item) { return item.id === identifier; });
+    }
+    else {
+        throw new TypeError("property ".concat(identifier, " must be either a string or a number."));
+    }
+}
+addNewPizza({ id: 5, name: "Chizza", price: 7 });
+console.log("Menu: \n", menu, "\n");
+console.log("New Order: \n", placeOrder("Margherita"), "\n");
+console.log("New Order: \n", placeOrder("Pepperoni"), "\n");
+console.log("Order Queue: \n", orderQueue, "\n");
+console.log("Completed order: \n", completeOrder(1), "\n");
+console.log("Cash in Register: ", cashInRegister, "\n");
+console.log("Pizza details with id-2: \n", getPizzaDetail(2), "\n");
+console.log("Pizza details with name Margherita: \n", getPizzaDetail("Margherita"), "\n");
