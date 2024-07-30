@@ -1,16 +1,23 @@
 // PIZZA RESTAURANT APP
-var menu = [
-    { id: 1, name: "Margherita", price: 8 },
-    { id: 2, name: "Pepperoni", price: 10 },
-    { id: 3, name: "Hawaiian", price: 10 },
-    { id: 4, name: "Veggie", price: 8 },
-];
+var nextPizzaId = 1;
 var cashInRegister = 100;
 var orderQueue = [];
 var nextOrderId = 1;
+var menu = [
+    { id: nextPizzaId++, name: "Margherita", price: 8 },
+    { id: nextPizzaId++, name: "Pepperoni", price: 10 },
+    { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+    { id: nextPizzaId++, name: "Veggie", price: 8 },
+];
 // FUNCTION TO ADD NEW PIZZA
+// omitting the id property from Pizza type 
+// to accept name and price in the parameter object
 function addNewPizza(pizzaObj) {
-    menu.push(pizzaObj);
+    menu.push({
+        id: nextPizzaId++,
+        name: pizzaObj.name,
+        price: pizzaObj.price,
+    });
 }
 // FUNCTION TO PLACE ORDER
 function placeOrder(pizzaName) {
@@ -52,7 +59,8 @@ function getPizzaDetail(identifier) {
         throw new TypeError("property ".concat(identifier, " must be either a string or a number."));
     }
 }
-addNewPizza({ id: 5, name: "Chizza", price: 7 });
+addNewPizza({ name: "Chizza", price: 7 });
+addNewPizza({ name: "Chicken Sausage Pizza", price: 11 });
 console.log("Menu: \n", menu, "\n");
 console.log("New Order: \n", placeOrder("Margherita"), "\n");
 console.log("New Order: \n", placeOrder("Pepperoni"), "\n");

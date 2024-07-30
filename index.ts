@@ -14,20 +14,33 @@ type Order = {
   status: "ordered" | "completed"; // union type
 };
 
-const menu: Pizza[] = [
-  { id: 1, name: "Margherita", price: 8 },
-  { id: 2, name: "Pepperoni", price: 10 },
-  { id: 3, name: "Hawaiian", price: 10 },
-  { id: 4, name: "Veggie", price: 8 },
-];
-
+let nextPizzaId = 1;
 let cashInRegister = 100;
 const orderQueue: Order[] = [];
 let nextOrderId = 1;
 
+const menu: Pizza[] = [
+  { id: nextPizzaId++, name: "Margherita", price: 8 },
+  { id: nextPizzaId++, name: "Pepperoni", price: 10 },
+  { id: nextPizzaId++, name: "Hawaiian", price: 10 },
+  { id: nextPizzaId++, name: "Veggie", price: 8 },
+];
+
 // FUNCTION TO ADD NEW PIZZA
-function addNewPizza(pizzaObj: Pizza): void {
-  menu.push(pizzaObj);
+// Utility types
+// Omit<type, "omittedProperty">
+// Omitting the id property from Pizza type
+// to accept name and price in the parameter object
+// Not using partial type here since it makes all the properties
+// into optional which might ignore if any property is missing
+function addNewPizza(pizzaObj: Omit<Pizza, "id">): Pizza {
+  const newPizza: Pizza = {
+    id: nextPizzaId++,
+    ...pizzaObj,
+  };
+
+  menu.push(newPizza);
+  return newPizza;
 }
 
 // FUNCTION TO PLACE ORDER
@@ -65,7 +78,7 @@ function completeOrder(orderId: number): Order | undefined {
 
 // FUNCTION TO GET PIZZA DETAIL
 // type narrowing
-function getPizzaDetail(identifier: number | string): Pizza | undefined{
+function getPizzaDetail(identifier: number | string): Pizza | undefined {
   if (typeof identifier === "string") {
     return menu.find(
       (item) => item.name.toLowerCase() === identifier.toLowerCase()
@@ -79,7 +92,8 @@ function getPizzaDetail(identifier: number | string): Pizza | undefined{
   }
 }
 
-addNewPizza({ id: 5, name: "Chizza", price: 7 });
+addNewPizza({ name: "Chizza", price: 7 });
+addNewPizza({ name: "Chicken Sausage Pizza", price: 11 });
 console.log("Menu: \n", menu, "\n");
 console.log("New Order: \n", placeOrder("Margherita"), "\n");
 console.log("New Order: \n", placeOrder("Pepperoni"), "\n");
