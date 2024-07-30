@@ -1,3 +1,8 @@
+type Pizza = {
+  name: string,
+  price: number
+}
+
 const menu = [
   { name: "Margherita", price: 8 },
   { name: "Pepperoni", price: 10 },
@@ -6,11 +11,11 @@ const menu = [
 ];
 
 let cashInRegister = 100;
-const orderQueue  = [];
+const orderQueue = [];
 let nextOrderId = 1;
 
 // FUNCTION TO ADD NEW PIZZA
-function addNewPizza(pizzaObj) {
+function addNewPizza(pizzaObj: Pizza ) {
   menu.push(pizzaObj);
 }
 
@@ -18,6 +23,7 @@ function addNewPizza(pizzaObj) {
 function placeOrder(pizzaName: string) {
   const selectedPizza = menu.find((item) => item.name === pizzaName);
 
+  // if selectedPizza is undefined, the program exits even before the execution of the next statement.
   if (!selectedPizza) {
     console.error(`${pizzaName} does not exist in the menu.`);
     return;
@@ -37,10 +43,9 @@ function placeOrder(pizzaName: string) {
 function completeOrder(orderId: number) {
   const order = orderQueue.find((item) => item.id === orderId);
 
-  // if order is undefined, the program exits even before the execution of the next statement.
-  if(!order) {
-    console.error(`No order with id ${orderId} found.`)
-    return
+  if (!order) {
+    console.error(`No order with id ${orderId} found.`);
+    return;
   }
 
   order.status = "completed";
